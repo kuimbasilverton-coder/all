@@ -1,0 +1,184 @@
+
+
+{% load static %}
+
+<style>
+    .login-wrapper {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, white);
+        padding: 20px;
+    }
+
+    .login-card {
+        width: 100%;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.0);
+        height: 100%
+        animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .login-header .logo {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+    }
+
+    .login-header h1 {
+        font-size: 1.6em;
+        color: blue;
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .login-header p {
+        color: blue;
+        font-size: 0.9em;
+        margin-top: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 600;
+        font-size: 0.9em;
+    }
+
+    .form-group input {
+        width: 100%;
+        height: 48px;
+        padding: 0 14px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 1em;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+        border-color: #004080;
+        box-shadow: 0 0 0 3px rgba(0, 64, 128, 0.1);
+        outline: none;
+    }
+
+    .login-btn {
+        width: 30%;
+        height: 50px;
+        background: linear-gradient(135deg, #004080, #217BA7);
+        color: white;
+        font-weight: bold;
+        font-size: 1.1em;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 64, 128, 0.3);
+    }
+
+    /* Shiny effect on button */
+    .login-btn::before {
+        content: "";
+        position: absolute{;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+
+    .login-footer {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+
+    .login-footer a {
+        color: #004080;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 0.9em;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    .login-footer a:hover {
+        color: #217BA7;
+        text-decoration: underline;
+    }
+
+    .errorlist {
+        color: red;
+        list-style: none;
+        padding: 0;
+        margin: 5px 0 0 0;
+        font-size: 0.85em;
+    }
+</style>
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="logo">🗝️</div>
+            <h1 class="shiny-text">WELCOME</h1>
+            <p>please enter your username and password</p>
+        </div>
+        
+        <form class="login-form" method="post">
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {{ field.errors }}
+            </div>
+            {% endfor %}
+
+            <button class="login-btn" type="submit">LOG IN</button>
+        </form>
+
+        <div class="login-footer">
+            <a href="#"></a>
+        
+        </div>
+        <div class="login-footer">   
+            <a href="{% url 'f' %}">Privacy Policy & App info</a>
+       
+        </div>
+        <div class="login-footer">    
+            <a href="#"></a>
+        </div>
+    </div>
+</div>
+<p style"color: orange;">By signing up, you agree to our privacy policy and terms of use</p>
