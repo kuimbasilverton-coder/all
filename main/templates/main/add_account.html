@@ -1,0 +1,50 @@
+
+{% extends 'main/7.html' %}
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+<div style="max-width: 100%; background: blue; padding: 30px; border-radius: 8px; color: white;">
+  <h2 style="background: white; letter-spacing: 1px; margin-bottom: 20px; color: black;"></h2>
+
+  {% if messages %}
+    <ul style="list-style:none; padding:0;">
+      {% for message in messages %}
+        <li style="padding: 8px; margin-bottom: 10px; border-radius: 5px;
+          background: {% if message.tags == 'error' %}#ff4f4f{% else %}#4caf50{% endif %};">
+          {{ message }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="post" action="{% url 'add_account' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="username" style="font-weight: bold;">USERNAME</label><br>
+    <input type="text" id="username" name="username" required
+      style="width: 100%; padding: 10px; margin: 8px 0 16px 0; border-radius: 8px; border: 2px solid #000080; font-size: 1em;">
+      
+    
+
+    
+
+  
+
+    
+      
+    
+    <label for="password" style="font-weight: bold;">PASSWORD</label><br>
+    <input type="password" id="password" name="password" required
+      style="width: 100%; padding: 10px; margin: 8px 0 24px 0; border-radius: 8px; border: 2px solid #000080; font-size: 1em;">
+    <label for="email" style="font-weight: bold;">EMAIL</label><br>
+    <input type="email" id="email" name="email" required
+      style="width: 100%; padding: 10px; margin: 8px 0 16px 0; border-radius: 8px; border: 2px solid #000080; font-size: 1em;">
+   
+    
+   
+    <button type="submit" style="width: 60%; background: #004080; color: white; padding: 14px; font-weight: bold; border-radius: 6px; font-size: 1.2em;">
+      SAVE
+    </button>
+  </form>
+</div>
+{% endblock %}

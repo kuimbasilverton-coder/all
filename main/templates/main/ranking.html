@@ -1,0 +1,139 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load custom_filters %}
+
+<style>
+.shiny-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #004080;
+  font-weight: bold;
+}
+.shiny-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shine 4s infinite;
+}
+@keyframes shine {
+ 0% { left: -50%; }
+ 100% { left: 100%; }
+}
+
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.ranking-table thead {
+    background: linear-gradient(to bottom, white, blue, blue);
+    color: white;
+}
+.ranking-table th {
+    text-align: left;
+    margin: 0; /* fixed typo */
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+    padding: 12px 8px;
+    font-size: 0.9em;
+}
+.ranking-table td {
+    border-bottom: 1px solid #eee;
+    padding: 12px 8px;
+    font-size: 0.9em;
+    font-weight: bolder;
+}
+.ranking-table tbody tr {
+    background: white;
+}
+.ranking-table tbody tr:hover {
+    background: blue;
+}
+.top-student {
+    
+    color: blue;
+}    
+.top-student td {
+    color: blue !important;
+}
+.B-student {
+    background: linear-gradient(135deg, #efebe4, #efebe4) !important;
+    color: #217b34;
+    font-weight: bold;
+}
+.B-student td {
+    color: #217b34 !important;
+}
+.A-student {
+   
+    color: blue;
+    
+}
+.A-student td {
+    color: blue !important;
+}
+</style> 
+
+{% if ranking_data %}
+<table class="ranking-table">
+  <thead>
+    <tr>
+      <th>RANKING PERFORMANCE</th>
+      <th>PASSED TESTS</th>
+      <th>STUDENT PERFORMANCE</th>
+    
+      <th>STUDENT NAME</th>
+      
+     
+    </tr>  
+  </thead>
+  <tbody>
+    {% for student in ranking_data %} <!-- fixed typo -->
+      {% if student.efficiency <= 50 %} <!-- only #1 gets special highlight -->
+        <tr class="top-student">
+      
+      {% elif student.efficiency >= 70 %} <!-- only #1 gets special highlight -->
+        <tr class="A-student">    
+      {% else %}
+      
+        <tr>
+      {% endif %}
+        <td style="color: blue;">{{ student.rank }}</td>
+        <td style="font-weight: bolder; color: blue;">{{ student.subjects_passed }}/{{ student.subjectspassed }}</td>
+        <td style="font-weight: bolder; color: blue;">{{ student.efficiency|mask_account }}%</td>
+      
+        <td style="font-weight: bolder; color: blue;">{{ student.student_name }}</td>
+        
+        
+        
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p style="text-align:center; padding: 40px; color: black;">No entries to rank yet.</p>
+{% endif %}
+
+<script>
+  const input = document.getElementById("search-input"); // fixed
+  if(input){ // safety check so it doesn't crash if input doesn't exist
+    input.addEventListener("input", function () {
+      const query = this.value;
+      fetch(`{% url 'f_search' %}?q=${encodeURIComponent(query)}`)
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById("search-results").innerHTML = html; // fixed
+        });
+    });
+  }
+</script> 
+
+{% endblock %}

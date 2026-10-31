@@ -1,0 +1,709 @@
+
+{% extends 'main/base.html' %}
+{% block content %}
+{% load custom_filters %}
+<style>
+.shiny-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #004080;
+  font-weight: bold;
+}
+
+.shiny-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+</style> 
+<form id="pdf-search-form" method="get" action="{% url 'search_results' %}" style="margin-bottom: 20px;">
+  <input id="search-input" class="shiny-text" type="text" name="q" value="{{ query }}" placeholder="Search Name" 
+         style="padding: 14px; width: 95%; border: 2px solid white; border-radius: 16px; box-shadow: 0 2px 8px rgba(154,140,152,0.9);">
+</form>
+
+<a class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.9); padding-bottom: 15px; font-size: 18px; background: white; color: blue; text-align: center;">☆</a>   
+
+
+
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.9); padding-bottom: 10px; font-size: 18px; background: orange; color: white; text-align: center;">FORM 1</h1>
+
+  
+  {% if ranking_data %}
+    <table style="width: 99.5%; border-collapse: collapse; margin-top: 20px;">
+      <thead>
+        <tr  style="background-color: orange; color: white; box-shadow: 0 2px 8px rgba(154,140,152,0.9); border-bottom: 30px;">
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">OVERAL POSITION</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">STUDENT NAME</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">TOTAL MARKS</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">PASSED SUBJECTS</th>
+          
+         
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">ID NO</th>
+          
+          
+          
+        
+          
+          
+        </tr>  
+          
+      </thead>
+      <tbody>
+        {% for student in ranking_data %}
+        
+          {% if student.id <= 2 %}
+            <tr style="background-color: #004080;"> <!-- light green to highlight -->
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.student_name }}</td>
+             
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.total_marks }}</td>
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.account|mask_account }}</td>
+              
+              
+              
+              
+              
+              
+            </tr>
+          {% else %}
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: yellow">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white">{{ student.student_name }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white;">{{ student.total_marks }}</td>
+               <td style="border: 1px solid #ddd; padding: 8px; color: white; background: blue;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; font-weight: bold; background: blue; color: white;">{{ student.account|mask_account }}</td>
+              
+             
+             
+              
+              
+              
+              
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No entries to rank yet.</p>
+  {% endif %}
+
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.0); padding-bottom: 10px; font-size: 18px; background: white; color: blue; text-align: center;">☆☆</h1>     
+<script>
+  const input = Entry.getElementById("search-input");
+  input.addEventListener("input", function () {
+    const query = this.value;
+
+    fetch(`{% url 'f_search' %}?q=${encodeURIComponent(query)}`)
+      .then(response => response.text())
+      .then(html => {
+        Entry.getElementById("search-results").innerHTML = html;
+      });
+  });
+</script> 
+
+<style>
+.shiny-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #004080;
+  font-weight: bold;
+}
+
+.shiny-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+</style>  
+
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.0); padding-bottom: 10px; font-size: 18px; background: blue; color: green; text-align: center;"></h1> 
+
+
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.9); padding-bottom: 10px; font-size: 18px; background: orange; color: white; text-align: center;">FORM 2</h1>
+
+  
+  {% if ranking_dat %}
+    <table style="width: 99.5%; border-collapse: collapse; margin-top: 20px;">
+      <thead>
+        <tr  style="background-color: orange; color: white; box-shadow: 0 2px 8px rgba(154,140,152,0.9); border-bottom: 30px;">
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">OVERAL POSITION</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">STUDENT NAME</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">TOTAL MARKS</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">PASSED SUBJECTS</th>
+          
+         
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">ID NO</th>
+          
+          
+          
+        
+          
+          
+        </tr>  
+          
+      </thead>
+      <tbody>
+        {% for student in ranking_dat %}
+        
+          {% if student.id <= 2 %}
+            <tr style="background-color: #004080;"> <!-- light green to highlight -->
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.student_name }}</td>
+             
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.total_marks }}</td>
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.account|mask_account }}</td>
+              
+              
+              
+              
+              
+              
+            </tr>
+          {% else %}
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: yellow">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white">{{ student.student_name }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white;">{{ student.total_marks }}</td>
+               <td style="border: 1px solid #ddd; padding: 8px; color: white; background: blue;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; font-weight: bold; background: blue; color: white;">{{ student.account|mask_account }}</td>
+              
+             
+             
+              
+              
+              
+              
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No entries to rank yet.</p>
+  {% endif %}
+  
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.0); padding-bottom: 10px; font-size: 18px; background: white; color: blue; text-align: center;">☆☆☆</h1>     
+<script>
+  const input = Entry.getElementById("search-input");
+  input.addEventListener("input", function () {
+    const query = this.value;
+
+    fetch(`{% url 'f_search' %}?q=${encodeURIComponent(query)}`)
+      .then(response => response.text())
+      .then(html => {
+        Entry.getElementById("search-results").innerHTML = html;
+      });
+  });
+</script> 
+
+
+<style>
+.shiny-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #004080;
+  font-weight: bold;
+}
+
+.shiny-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+</style>  
+
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.0); padding-bottom: 10px; font-size: 18px; background: blue; color: green; text-align: center;"></h1> 
+
+
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.9); padding-bottom: 10px; font-size: 18px; background: orange; color: white; text-align: center;">FORM 3</h1>
+
+  
+  {% if ranking_da %}
+    <table style="width: 99.5%; border-collapse: collapse; margin-top: 20px;">
+      <thead>
+        <tr  style="background-color: orange; color: white; box-shadow: 0 2px 8px rgba(154,140,152,0.9); border-bottom: 30px;">
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">OVERAL POSITION</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">STUDENT NAME</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">TOTAL MARKS</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">PASSED SUBJECTS</th>
+          
+         
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">ID NO</th>
+          
+          
+          
+        
+          
+          
+        </tr>  
+          
+      </thead>
+      <tbody>
+        {% for student in ranking_da %}
+        
+          {% if student.id <= 2 %}
+            <tr style="background-color: #004080;"> <!-- light green to highlight -->
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.student_name }}</td>
+             
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.total_marks }}</td>
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.account|mask_account }}</td>
+              
+              
+              
+              
+              
+              
+            </tr>
+          {% else %}
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: yellow">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white">{{ student.student_name }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white;">{{ student.total_marks }}</td>
+               <td style="border: 1px solid #ddd; padding: 8px; color: white; background: blue;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; font-weight: bold; background: blue; color: white;">{{ student.account|mask_account }}</td>
+              
+             
+             
+              
+              
+              
+              
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No entries to rank yet.</p>
+  {% endif %}
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.0); padding-bottom: 10px; font-size: 18px; background: white; color: blue; text-align: center;">☆☆☆☆</h1>     
+<script>
+  const input = Entry.getElementById("search-input");
+  input.addEventListener("input", function () {
+    const query = this.value;
+
+    fetch(`{% url 'f_search' %}?q=${encodeURIComponent(query)}`)
+      .then(response => response.text())
+      .then(html => {
+        Entry.getElementById("search-results").innerHTML = html;
+      });
+  });
+</script> 
+
+
+<style>
+.shiny-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #004080;
+  font-weight: bold;
+}
+
+.shiny-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+</style> 
+
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.0); padding-bottom: 10px; font-size: 18px; background: blue; color: green; text-align: center;"></h1> 
+
+
+
+
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.9); padding-bottom: 10px; font-size: 18px; background: orange; color: white; text-align: center;">FORM 4</h1>
+
+  
+  {% if ranking_d %}
+    <table style="width: 99.5%; border-collapse: collapse; margin-top: 20px;">
+      <thead>
+        <tr  style="background-color: white; orange; color: white; box-shadow: 0 2px 8px rgba(154,140,152,0.9); border-bottom: 30px;">
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">OVERAL POSITION</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">STUDENT NAME</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">TOTAL MARKS</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">PASSED SUBJECTS</th>
+          
+         
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">ID NO</th>
+          
+          
+          
+        
+          
+          
+        </tr>  
+          
+      </thead>
+      <tbody>
+        {% for student in ranking_d %}
+        
+          {% if student.id <= 2 %}
+            <tr style="background-color: #004080;"> <!-- light green to highlight -->
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.student_name }}</td>
+             
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.total_marks }}</td>
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.account|mask_account }}</td>
+              
+              
+              
+              
+              
+              
+            </tr>
+          {% else %}
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: yellow">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white">{{ student.student_name }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white;">{{ student.total_marks }}</td>
+               <td style="border: 1px solid #ddd; padding: 8px; color: white; background: blue;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; font-weight: bold; background: blue; color: white;">{{ student.account|mask_account }}</td>
+              
+             
+             
+              
+              
+              
+              
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No entries to rank yet.</p>
+  {% endif %}
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.0); padding-bottom: 10px; font-size: 18px; background: white; color: blue; text-align: center;">☆☆☆☆☆</h1>     
+<script>
+  const input = Entry.getElementById("search-input");
+  input.addEventListener("input", function () {
+    const query = this.value;
+
+    fetch(`{% url 'f_search' %}?q=${encodeURIComponent(query)}`)
+      .then(response => response.text())
+      .then(html => {
+        Entry.getElementById("search-results").innerHTML = html;
+      });
+  });
+</script> 
+
+
+<style>
+.shiny-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #004080;
+  font-weight: bold;
+}
+
+.shiny-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+</style>  
+
+
+
+
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.9); padding-bottom: 10px; font-size: 18px; background: white; color: efebe4; text-align: center;">FORM 5</h1>
+
+  
+  {% if ranking_ %}
+    <table style="width: 99.5%; border-collapse: collapse; margin-top: 20px;">
+      <thead>
+        <tr  style="background-color: orange; color: white; box-shadow: 0 2px 8px rgba(154,140,152,0.9); border-bottom: 30px;">
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">OVERAL POSITION</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">STUDENT NAME</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">TOTAL MARKS</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">PASSED SUBJECTS</th>
+          
+         
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">ID NO</th>
+          
+          
+          
+        
+          
+          
+        </tr>  
+          
+      </thead>
+      <tbody>
+        {% for student in ranking_ %}
+        
+          {% if student.id > 1 %}
+            <tr style="background-color: #004080;"> <!-- light green to highlight -->
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.student_name }}</td>
+             
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.total_marks }}</td>
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.account|mask_account }}</td>
+              
+              
+              
+              
+              
+              
+            </tr>
+          {% else %}
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: yellow">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white">{{ student.student_name }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white;">{{ student.total_marks }}</td>
+               <td style="border: 1px solid #ddd; padding: 8px; color: white; background: blue;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; font-weight: bold; background: blue; color: white;">{{ student.account|mask_account }}</td>
+              
+             
+             
+              
+              
+              
+              
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No entries to rank yet.</p>
+  {% endif %}
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.0); padding-bottom: 10px; font-size: 18px; background: white; color: blue; text-align: center;">☆☆☆☆☆☆</h1>     
+<script>
+  const input = Entry.getElementById("search-input");
+  input.addEventListener("input", function () {
+    const query = this.value;
+
+    fetch(`{% url 'f_search' %}?q=${encodeURIComponent(query)}`)
+      .then(response => response.text())
+      .then(html => {
+        Entry.getElementById("search-results").innerHTML = html;
+      });
+  });
+</script> 
+
+
+<style>
+.shiny-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #004080;
+  font-weight: bold;
+}
+
+.shiny-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+</style>  
+
+
+
+
+<h1 class="shiny-text" style="box-shadow: 0 2px 8px rgba(154,140,152,0.9); padding-bottom: 10px; font-size: 18px; background: white; color: efebe4; text-align: center;">FORM 6</h1>
+
+  
+  {% if ranking %}
+    <table style="width: 99.5%; border-collapse: collapse; margin-top: 20px;">
+      <thead>
+        <tr  style="background-color: orange; color: white; box-shadow: 0 2px 8px rgba(154,140,152,0.9); border-bottom: 30px;">
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">OVERAL POSITION</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">STUDENT NAME</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">TOTAL MARKS</th>
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">PASSED SUBJECTS</th>
+          
+         
+          <th style="text-align: left; magin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">ID NO</th>
+          
+          
+          
+        
+          
+          
+        </tr>  
+          
+      </thead>
+      <tbody>
+        {% for student in ranking %}
+        
+          {% if student.id <= 2 %}
+            <tr style="background-color: #004080;"> <!-- light green to highlight -->
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.student_name }}</td>
+             
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.total_marks }}</td>
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; color: white;">{{ student.account|mask_account }}</td>
+              
+              
+              
+              
+              
+              
+            </tr>
+          {% else %}
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: yellow">{{ student.rank }}</td>
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white">{{ student.student_name }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; background: blue; color: white;">{{ student.total_marks }}</td>
+               <td style="border: 1px solid #ddd; padding: 8px; color: white; background: blue;;">{{ student.subjects_passed }}</td>
+              
+              
+              <td style="border: 1px solid #ddd; padding: 8px; font-weight: bold; background: blue; color: white;">{{ student.account|mask_account }}</td>
+              
+             
+             
+              
+              
+              
+              
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No entries to rank yet.</p>
+  {% endif %}
+<script>
+  const input = Entry.getElementById("search-input");
+  input.addEventListener("input", function () {
+    const query = this.value;
+
+    fetch(`{% url 'f_search' %}?q=${encodeURIComponent(query)}`)
+      .then(response => response.text())
+      .then(html => {
+        Entry.getElementById("search-results").innerHTML = html;
+      });
+  });
+</script> 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+{% endblock %}
+
+

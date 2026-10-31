@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% block title %}Delete{% endblock %}
+{% block content %}
+<h2>GROUP A</h2>
+<ul style="list-style:none; padding:0;">
+  {% for school in schools %}
+    <li style="margin-bottom:10px; background:#eee; padding:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+      <span>{{ school.name }}</span>
+      <form method="post" action="{% url 'delete_school' school.id %}" style="margin:0;">
+        {% csrf_token %}
+        <button type="submit" style="background:#d9534f; color:white; border:none; padding:6px 12px; border-radius:8px; cursor:pointer;">
+          DELETE
+        </button>
+      </form>
+    </li>
+  {% empty %}
+    <li>No schools registered.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

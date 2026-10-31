@@ -1,0 +1,167 @@
+{% extends 'main/bes.html' %}
+{% block title %}SEARCH{% endblock %}
+
+{% block content %}
+
+<style>
+.shiny-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #004080;
+  font-weight: bold;
+}
+
+.shiny-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+ 0% { left: -50%; }
+  100% { left: 100%; }
+}
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.ranking-table thead {
+    background: linear-gradient(to bottom, #004080, blue);
+    color: white;
+}
+.ranking-table th {
+    text-align: left;
+    margin: 0; /* fixed typo */
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+    padding: 12px 8px;
+    font-size: 0.9em;
+}
+.ranking-table td {
+    border-bottom: 1px solid #eee;
+    padding: 12px 8px;
+    font-size: 0.9em;
+    font-weight: bolder;
+}
+.ranking-table tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+.ranking-table tbody tr:hover {
+    background: #e3f2fd;
+}
+.top-student {
+    
+    color: red;
+}    
+.top-student td {
+    color: red !important;
+}
+.B-student {
+    background: linear-gradient(135deg, #efebe4, #efebe4) !important;
+    color: orange;
+    font-weight: bold;
+}
+.B-student td {
+    color: orange !important;
+}
+.A-student {
+   
+    color: #004080;
+    
+}
+.A-student td {
+    color: #004080 !important;
+}
+</style>  
+
+<form id="pdf-search-form" method="get" action="" style="margin-bottom: 20px; margin-left: 0;">
+  <input id="search-input" class="shiny-text" type="text" name="q" value="{{ query }}" placeholder="Search Name" style="background: white; padding: 14px; width: 100%; border: 2px solid white; border-radius: 16px; box-shadow: 0 2px 8px rgba(154,140,152,0.9)">
+</form>
+
+{% if rsults %}
+    <h2 style="background: linear-gradient(to right, #004080, blue); color: white; width: 50%; box-shadow: 0 2px 8px rgba(154,140,152,0.9);"> {{ rsults.0.student_name }}</h2>
+{% endif %}
+
+
+
+
+{% if rsults %}
+ 
+  <table class="ranking-table" style="width: 95%; border-collapse: collapse; margin-top: 10px;">
+    <thead>
+      <tr style="background: linear-gradient(to right, #004080, blue); color: white;">
+        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAMINATION</th>                                                                
+        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAM MARK</th>
+        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAM GRADE</th>
+      </tr>
+    </thead>
+    <tbody>    
+      {% for subject in passed_subjects %}
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to bottom, #efebe4;); color: black; font-weight: bolder;">{{ subject.subject.name }}</td>                                                      
+        <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: black; font-weight: bolder">{{ subject.student_mark }}%</td>
+        {% if subject.student_mark <= 49 %}
+          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: black; font-weight: bolder"></td>
+        {% elif subject.student_mark >= 70 %}
+          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: blue; font-weight: bolder">A</td>
+        {% elif subject.student_mark <= 59 %}
+          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: purple; font-weight: bolder">C</td>
+          
+        
+        {% else %}
+          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: #004080;;  font-weight: bolder">B</td>
+        {% endif %}     
+           
+      </tr>
+      {% empty %}
+      <tr><td colspan="2"></td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+ 
+  <table style="width: 95%; border-collapse: collapse; margin-top: 10px;">
+    <thead>
+     <table style="width: 95%; border-collapse: collapse; margin-top: 10px;">
+    <thead>
+      <tr style="background: linear-gradient(to right, #efebe4); color: #efebe4;">
+        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAMINATION</th>                                                                
+        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAM MARK</th>
+        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAM GRADE</th>
+      
+    </thead>
+    <tbody>    
+      {% for subject in failed_subjects %}
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: black; font-weight: bold">{{ subject.subject.name }}</td>                                                      
+        <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to left, #efebe4); color: red">{{ subject.student_mark }}%</td>
+        {% if subject.student_mark >= 45 %}
+          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: red; font-weight: bolder">D</td>
+        {% elif subject.student_mark <= 39 %}
+          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: red; font-weight: bolder">U</td>
+        {% else %}
+          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: red; font-weight: bolder">E</td>
+        {% endif %}  
+               
+      </tr>
+      {% empty %}
+      <tr><td colspan="2"></td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  
+
+{% endif %}
+
+{% endblock %}

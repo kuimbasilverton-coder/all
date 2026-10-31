@@ -1,0 +1,64 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MATHEMATICS{% endblock %}</title>
+    <style>
+        body {
+            
+            
+            background: #efebe4;
+            height: 100%;
+            
+            width: 100%;
+            border-top: 3px solid white;
+        
+          }          
+    </style>
+</head>
+<body>
+    
+        
+        
+
+      
+    
+    
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    {% for school in schools %}
+       <div class="footer">
+        &copy; Rise and Shine results site. All Rights  Reserved
+       </div>
+    {% endfor %}   
+
+    
+
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.getElementById('menu');
+        hamburger.addEventListener('click', () => {
+            menu.style.display = menu.style.display === 'flex'? 'none': 'flex';
+            if(menu.style.display === 'flex') menu.style.flexDirection = 'column';
+        });
+        window.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) &&!menu.contains(e.target)) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>
+
+
+
+
+
+                
+    
+</body>
+</html>
+

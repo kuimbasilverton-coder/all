@@ -1,0 +1,47 @@
+
+{% extends "main/base.html" %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 40px auto; padding: 20px; background: #051021; border-radius: 12px; color: black; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+  <h2 style="font-weight: 800; font-size: 24px; border-bottom: 2px solid; background: white; padding-bottom: 12px; margin-bottom: 20px;">
+    GET PREMIUM — Pay with EcoCash $2
+  </h2>
+
+  <p style="font-weight: 700; margin-bottom: 20px; background: white; color: black;">
+    PREMIUM GIVES ACCESS TO: 
+    WRITE LIVE EXAMS,
+    COMPETE WITH OTHERS,
+    VIEW RESULTS
+  </p>
+
+  <div style="background: #ffff; padding: 20px; border-radius: 10px; letter-spacing: 0.07em; margin-bottom: 10px;">
+    <strong>EcoCash Number:</strong>
+    <p style="font-weight: 900; font-size: 28px; color: #000080; margin: 0;">0775955783</p>
+  </div>
+
+  <div style="background: white; padding: 20px; border-radius: 10px; letter-spacing: 0.07em; margin-bottom: 25px;">
+    <strong>USSD Code:</strong>
+    <p style="font-weight: 900; font-size: 28px; color: #000080; margin: 0;">*151#</p>
+  </div>
+
+  <button onclick="alert('Premium access will activate after payment confirmation')" 
+    style="width: 50%; background: white; color: black; border-radius: 12px; border: none; padding: 18px 0; color: black; font-weight: 700; font-size: 20px; cursor: pointer;">
+    OK
+  </button>
+
+</div>
+<script>
+  function confirmPayment() {
+    fetch("{% url 'check_payment' %}", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": "{{ csrf_token }}",
+        "Content-Type": "application/json"
+      },
+    }).then(res => res.json()).then(data => alert(data.message)).catch(() => alert("Payment verification failed."))
+  }
+</script>
+
+<button onclick="confirmPayment()" style="width: 50%; background: black; border-radius: 12px; border: none; padding: 18px 0; color: white; font-weight: 700; font-size: 20px; cursor: pointer;">I have Paid</button>
+{% endblock %}

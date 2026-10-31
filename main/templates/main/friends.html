@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load custom_filters %} {# make sure you have get_item filter #}
+{% block title %}MATHEMATICS{% endblock %}
+
+{% block content %}
+<div style="background: #efebe4; border-radius: 12px; max-width: 95%; margin: 20px auto; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+  
+  
+
+  <ul style="list-style: none; padding: 0; margin: 0;">
+    {% for user in logged_in_users %}
+      {% with user.username as acc %}
+      {% with rank_dict|get_item:acc as user_rank %}
+
+      <li style="background: linear-gradient(to right, #ffffff, #e3f2fd); margin-bottom: 12px; padding: 12px 15px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; border-left: 4px solid blue; border-right: 4px solid blue;">
+        
+        <div style="display:flex; align-items:center; gap: 15px;">
+          {% if user.profile_pic %}
+            <img src="{{ user.profile_pic.url }}" alt="Profile pic" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #004080;"> <!-- FIXED -->
+          {% else %}
+            <img src="{% static 'main/Xt.jpg' %}" alt="Default pic" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #ccc;">
+          {% endif %}
+          
+          <div>
+            <div style="font-size: 1em; color: blue; font-weight: 600;"> {{ user.username }}</div>
+            <div style="font-size: 0.8em; color: #656;">Account: {{ acc }}</div>
+          </div>
+        </div>
+
+        <div style="text-align: right; min-width: 70px;">
+          {% if user_rank is None or user_rank == 0 %}
+            <div style="font-weight: bold; color: #989; font-size: 0.9em;">UNRANKED</div>
+            <div style="font-size: 1.2em;"></div>
+          {% else %}
+            <div style="font-weight: bold; color: #004080; font-size: 1.1em;">{{ user_rank }}</div>
+            <div style="font-size: 1.2em;">✨⭐</div>
+          {% endif %}
+        </div>
+      </li>
+
+      {% endwith %}
+      {% endwith %}
+    {% empty %}
+      <li style="color: gray; text-align: center; padding: 30px;">No users found.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

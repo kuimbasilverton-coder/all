@@ -1,0 +1,9 @@
+{% extends 'main/7.html' %}
+{% block title %}OLEVEL Mathematics - 2025{% endblock %}
+{% block content %}
+<form style="background: white; padding-bottom: 20px; color: back;" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" style="background: green;">Send</button>
+</form>
+{% endblock %}

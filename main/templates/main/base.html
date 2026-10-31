@@ -1,0 +1,264 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MATHEMATICS{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #efebe4;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-top: 3px solid white;
+            padding-top: 80px; /* space for fixed nav */
+        }
+        .navbar {
+            background: #004080;
+            color: white;
+            font-weight: bold;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.9);
+            position: relative; /* fixed typo */
+        }
+        .top-right-btn {
+            position: absolute;
+            right: 20px;
+            top: 12px;
+            background: #00b894;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1em;
+            z-index: 1001;
+            transition: background 0.3s;
+        }
+        .top-right-btn:hover {
+            background: #019e7a;
+        }
+        .navbar-links {
+            display: flex;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 24px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.9);
+        }
+        .navbar a:last-child {
+            margin-right: 0;
+        }
+        .navbar a:hover {
+            background: #4a4e69;
+        }
+        #hamburger {
+            background: blue;
+            border: none;
+            color: green;
+            font-size: 0.1px;
+            cursor: pointer;
+            margin-right: 14px;
+            padding: 0;
+        }
+        #menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 100px;
+            min-height: 100vh;
+            background: #004080;
+            border-radius: 3px;
+            padding: 15px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            min-width: 300px;
+            z-index: 1000;
+        }
+        #menu a {
+            color: white;
+            padding: 20px 0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        #menu a:hover {
+            background: #4a4e69;
+        }
+        .container {
+            padding: 40px 20px;
+            flex: 1 0 auto;
+        }
+        .welcome-box {
+            position: relative;
+            background: #217BA7;
+            height: 55vh;
+            top: 0;
+            width: 900px;
+            padding: 100px 60px;
+            border-radius: 18px;
+            box-shadow: 0 6px 30px rgba(45,36,63,0.16);
+            text-align: center;
+            max-width: 600px;
+            margin: 90px auto;
+            border: 2px solid #9a8c98;
+            overflow: hidden;
+       }
+        .orange-corner {
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 150px;
+           height: 180px;
+           background: white;
+           clip-path: polygon(0 0, 100% 0, 0 100%);
+           border-top-left-radius: 18px;
+           z-index: 10;
+        }
+        .footer {
+            background: white;
+            color: #004080;
+            text-align: center;
+            padding: 16px 0;
+            font-size: 0.98em;
+            border-top: 1px solid #9a8c98;
+            margin-top: 30px;
+            flex-shrink: 0;
+            letter-spacing: 0.03em;       
+        }
+        .shiny-text {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            color: #004080;
+            font-weight: bold;
+         }
+        .shiny-text::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shine 8s infinite;
+         }
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 100%; }
+        }
+
+        /* NEW NAV BUTTON STYLES */
+        .nav-btn {
+            box-shadow: 0 2px 8px rgba(154,140,152,0.9); 
+            text-align: center; 
+            color: white; 
+            text-decoration: none; 
+            font-size: 12px; 
+            border-radius: 10px;
+            padding: 4px 8px;
+            transition: all 0.3s;
+            margin: 0; /* fixed typo */
+        }
+        .nav-btn:hover {
+            transform: scale(1.05);
+        }
+        .nav-btn.active {
+            background: white !important; /* turns red when active */
+            color: blue !important;
+        }
+    </style>
+</head>
+<body>
+    
+    
+        
+    <!-- Hamburger dropdown menu -->
+    <div id="menu"></div>
+
+    <!-- FIXED NAVBAR -->
+    <nav style="position: fixed; top: 0; width: 100%; background: linear-gradient(to bottom, #000080, blue); border-top: 1px solid black; display: flex; justify-content: space-around; align-items: center; height: 80px; z-index: 1000; border-radius: 0px; font-weight: bold;">
+  
+        <a href="{% url 'results' %}" class="nav-btn">
+            <div> 👨‍💼📃️</div>
+            <div>Report Books</div>
+        </a>
+        <a href="{% url 'show' %}" class="nav-btn">
+            <div style="color: white;">📈📉️</div>
+            <div>Exams Top 10s</div>
+        </a>  
+        <a href="{% url 'ranking' %}" class="nav-btn">
+            <div style="color: yellow;">📉️📈</div>
+            <div>Exams Top 100s</div>
+        </a>
+        <a href="{% url 'friends' %}" class="nav-btn">
+            <div>@️👩‍💼</div>
+            <div>Active Accounts</div>
+        </a>  
+        <a href="{% url 'add_account' %}" class="nav-btn">
+            <div>⚙️🗝️</div>
+            <div>Create Account</div>
+        </a>
+    </nav>
+    
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% for school in schools %}
+       <div class="footer">
+        &copy; {{ now.year }} {{ school.name }} elearning site. All Rights Reserved
+       </div>
+    {% endfor %}   
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.getElementById('menu');
+        if(hamburger){
+            hamburger.addEventListener('click', () => {
+                menu.style.display = menu.style.display === 'flex'? 'none': 'flex';
+                if(menu.style.display === 'flex') menu.style.flexDirection = 'column';
+            });
+        }
+        window.addEventListener('click', (e) => {
+            if (hamburger && !hamburger.contains(e.target) && !menu.contains(e.target)) {
+                menu.style.display = 'none';
+            }
+        });
+
+        // Make nav button turn red on active page
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-btn');
+            const currentPath = window.location.pathname;
+
+            navLinks.forEach(link => {
+                // Highlight current page
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+                // Instant feedback on click
+                link.addEventListener('click', () => {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

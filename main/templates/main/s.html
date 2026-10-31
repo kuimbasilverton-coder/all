@@ -1,0 +1,475 @@
+
+{% extends 'main/base.html' %}
+{% block title %}Registered Schools{% endblock %}
+{% block content %}
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Subjects & Forms</title>
+<style>.collapsible {
+    background-color: #004080;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    font-size: 16px;
+  }.active,.collapsible:hover { background-color: #0056b3; }.content {
+    padding: 0 15px; display: none; overflow: hidden; background-color: #f1f1f1;
+  }
+  button {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover { background-color: #218838; }
+</style>
+</head>
+<body>
+
+<script>
+function toggleContent(id) {
+  var content = document.getElementById(id);
+  if (content.style.display === "block") {
+    content.style.display = "none";
+  } else {
+    content.style.display = "block";
+  }
+}
+</script>
+
+<h1 style="color: white; background: black; border-bottom: 64px;">FOR TEACHERS ONLY</h2>
+
+
+<button class="collapsible" onclick="toggleContent('sub1')">ACCOUNTING</button>
+<div class="content" id="sub1">
+  <form action="{% url 'enter_marks' 1 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 1 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 1 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 1 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 1 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 1 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+
+<!-- Subject 2 -->
+<button class="collapsible" onclick="toggleContent('sub2')">COMPUTER SCIENCE</button>
+<div class="content" id="sub2">
+
+  <form action="{% url 'enter_marks' 2 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 2 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 2 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 2 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 2 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 2 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+
+
+
+<button class="collapsible" onclick="toggleContent('sub3')">MATHEMATICS</button>
+<div class="content" id="sub3">
+
+  <form action="{% url 'enter_marks' 3 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 3 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 3 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 3 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 3 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 3 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+  
+
+
+
+<button class="collapsible" onclick="toggleContent('sub4')">BUSINESS STUDIES</button>
+<div class="content" id="sub4">
+
+  <form action="{% url 'enter_marks' 4 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 4 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 4 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 4 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 4 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 4 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>  
+
+
+
+<button class="collapsible" onclick="toggleContent('sub5')">COMMERCE</button>
+<div class="content" id="sub5">
+
+  <form action="{% url 'enter_marks' 5 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 5 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 5 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 5 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 5 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 5 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>  
+
+
+
+<button class="collapsible" onclick="toggleContent('sub6')">BIOLOGY</button>
+<div class="content" id="sub6">
+
+  <form action="{% url 'enter_marks' 6 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 6 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 6 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 6 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 6 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 6 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div> 
+
+
+
+<button class="collapsible" onclick="toggleContent('sub7')">CHEMISTRY</button>
+<div class="content" id="sub7">
+
+  <form action="{% url 'enter_marks' 7 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 7 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 7 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 7 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 7 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 7 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+
+<button class="collapsible" onclick="toggleContent('sub8')">PHYSICS</button>
+<div class="content" id="sub8">
+
+  <form action="{% url 'enter_marks' 8 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 8 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 8 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 8 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 8 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 8 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+
+
+<button class="collapsible" onclick="toggleContent('sub9')">ENGLISH</button>
+<div class="content" id="sub9">
+
+  <form action="{% url 'enter_marks' 9 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 9 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 9 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 9 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 9 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 9 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+<button class="collapsible" onclick="toggleContent('sub10')">SHONA</button>
+<div class="content" id="sub10">
+
+  <form action="{% url 'enter_marks' 10 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 10 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 10 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 10 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 10 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 10 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+ 
+
+
+
+<button class="collapsible" onclick="toggleContent('sub11')">HISTORY</button>
+<div class="content" id="sub11">
+
+  <form action="{% url 'enter_marks' 11 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 11 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 11 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 11 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 11 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 11 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+
+
+<button class="collapsible" onclick="toggleContent('sub12')">GEOGRAPHY</button>
+<div class="content" id="sub12">
+
+  <form action="{% url 'enter_marks' 12 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 12 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 12 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 12 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 12 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 12 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+
+<button class="collapsible" onclick="toggleContent('sub13')">COMPINED SCIENCE</button>
+<div class="content" id="sub13">
+
+  <form action="{% url 'enter_marks' 13 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 13 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 13 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 13 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 13 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 13 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+<button class="collapsible" onclick="toggleContent('sub14')">AGRICULTURE</button>
+<div class="content" id="sub14">
+
+  <form action="{% url 'enter_marks' 14 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 14 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 14 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 14 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 14 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 14 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+
+<button class="collapsible" onclick="toggleContent('sub15')">HERITAGE</button>
+<div class="content" id="sub15">
+
+  <form action="{% url 'enter_marks' 15 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 15 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 15 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 15 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 15 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 15 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+
+<button class="collapsible" onclick="toggleContent('sub16')">FASHION</button>
+<div class="content" id="sub16">
+
+  <form action="{% url 'enter_marks' 16 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 16 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 16 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 16 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 16 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 16 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+<button class="collapsible" onclick="toggleContent('sub17')">BUILDING</button>
+<div class="content" id="sub17">
+
+  <form action="{% url 'enter_marks' 17 1 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 1</button>
+  </form>
+  <form action="{% url 'enter_marks' 17 2 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 2</button>
+  </form>
+  <form action="{% url 'enter_marks' 17 3 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 3</button>
+  </form>
+  <form action="{% url 'enter_marks' 17 4 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 4</button>
+  </form>
+  <form action="{% url 'enter_marks' 17 5 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 5</button>
+  </form>
+  <form action="{% url 'enter_marks' 17 6 %}" method="get" style="display: inline;">
+    <button type="submit" class="form-button">Form 6</button>
+  </form>
+</div>
+
+<!-- Add more subjects similarly -->
+
+</body>
+</html>
+{% endblock %}
+
+
+

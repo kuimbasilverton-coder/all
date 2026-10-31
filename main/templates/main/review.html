@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% block title %}Teachers Review{% endblock %}
+
+{% block content %}
+<div style="max-width: 480px; margin: auto; padding: 20px; background: white; color: white; min-height: 100vh;">
+  {% for form in forms %}
+    <div style="background:#e74c3c; padding:12px; font-weight:bold; border-radius:6px; margin-bottom: 10px;">
+      FORM {{ form.number }}
+    </div>
+    <div>
+      {% for teacher in form.teachers.all %}
+        <input type="text" value="◇{{ teacher.name }}" readonly style="width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 6px; border: none; color: #217ba7;">
+      {% empty %}
+        <p>No students yet</p>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

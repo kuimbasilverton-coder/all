@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% block title %}OLEVEL Mathematics - 2025{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+</head>
+<body>
+    <h1>Upload your file</h1>
+
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <button type="submit">Upload</button>
+    </form>
+
+</body>
+</html>
+{% endblock %}

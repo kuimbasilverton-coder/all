@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Notifications</title>
+</head>
+<body>
+    <h2>Notifications</h2>
+    {% if notifications %}
+        <ul>
+        {% for note in notifications %}
+            <li>
+                {% if not note.read %}
+                    <strong>[NEW]</strong>
+                {% endif %}
+                {{ note.message }} <em>({{ note.created_at|date:"M d, Y H:i" }})</em>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No notifications yet.</p>
+    {% endif %}
+    <a href="/">Back to Home</a>
+</body>
+</html>

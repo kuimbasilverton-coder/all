@@ -1,0 +1,79 @@
+{% extends 'main/7.html' %}
+
+{% block title %}Admin Access{% endblock %}
+
+{% block content %}
+<style>
+  .admin-container {
+    max-width: 400px;
+    margin: 40px auto;
+    background: #004080;
+    padding: 30px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .admin-header {
+    background: #217BA7;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .admin-form {
+    padding: 20px;
+  }
+
+  .admin-label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .admin-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: none;
+  }
+
+  .admin-button {
+    width: 100%;
+    padding: 14px;
+    background: white;
+    color: #004080;
+    font-weight: bold;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .admin-button:hover {
+    background: #ddd;
+  }
+
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+</style>
+
+<div class="admin-container">
+  <h2 class="admin-header">Admin Access</h2>
+  {% if error %}
+  <p class="error-message">{{ error }}</p>
+  {% endif %}
+  <form class="admin-form" method="post" action="{% url 'admins' %}">
+    {% csrf_token %}
+    <label class="admin-label" for="password1">Username</label>
+    <input class="admin-input" type="password" id="password1" name="password1" required>
+    <label class="admin-label" for="password2">Password</label>
+    <input class="admin-input" type="password" id="password2" name="password2" required>
+    <button class="admin-button" type="submit">ENTER</button>
+  </form>
+</div>
+{% endblock %}

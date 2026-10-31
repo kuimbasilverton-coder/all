@@ -1,0 +1,7 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+  <h1  style="width: 100%; padding: 16px; border: 2px solid white; border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.9); background: #004080; color: white;">  ${{ user.profile.balance }}</h1>
+  <p style="width: 100%; padding: 16px; border: 2px solid white; border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.9); background: #004080; color: white;">Ecocash Number: {{ user.username }}</p>
+  <p style="width: 100%; padding: 16px; border: 2px solid white; border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.9); background: #004080; color: white;">you claim it only if you paid reg fee</p> 
+{% endblock %}

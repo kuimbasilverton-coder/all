@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% block title %}MATHEMATICS{% endblock %}
+{% block content %}
+<form method="POST" action="{% url 'submit' %}">
+  {% csrf_token %}
+  <input type="text" name="school_code" placeholder="CODE" required>
+  <input type="password" name="password" placeholder="PASSWORD" required>
+  <button type="submit">Enter</button>
+</form>
+{% if messages %}
+  <div>
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}
+
+

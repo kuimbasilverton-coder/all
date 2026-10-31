@@ -1,0 +1,43 @@
+
+{% extends 'main/base.html' %}
+{% block content %}
+{% load static %}
+<style>
+.shiny-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #004080;
+  font-weight: bold;
+}
+
+.shiny-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.9), transparent);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+</style>
+<form id="pdf-search-form" method="get" action="{% url 'search_results' %}" style="margin-bottom: 20px;">
+  <input id="search-input" class="shiny-text" type="text" name="q" value="{{ query }}" placeholder="Search Name" 
+         style="padding: 14px; width: 95%; border: 2px solid white; border-radius: 16px; box-shadow: 0 2px 8px rgba(154,140,152,0.9);">
+</form>  
+
+
+
+
+
+
+
+
+
+{% endblock %}

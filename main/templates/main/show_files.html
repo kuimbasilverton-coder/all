@@ -1,0 +1,224 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load custom_filters %}
+
+<style>
+.shiny-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #004080;
+  font-weight: bold;
+}
+.shiny-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shine 4s infinite;
+}
+@keyframes shine {
+ 0% { left: -50%; }
+  100% { left: 100%; }
+}
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    
+}
+.ranking-table th {
+    text-align: left; 
+    margin: 0; /* fixed typo */
+    font-weight: bold; 
+    border: 1px solid #ddd; 
+    padding: 8px;
+    background: linear-gradient(to bottom, #004080, white); 
+    color: white; 
+    box-shadow: 0 2px 8px rgba(154,140,152,0.9);
+}
+.ranking-table td {
+    border: 1px solid #ddd; 
+    padding: 8px;
+    color: black;
+    font-weight: bolder;
+    
+    
+}
+.top2 {
+    background: linear-gradient(to bottom, #efebe4, #efebe4);
+    color: black;
+}
+.other {
+    background: #efebe4; 
+    color: black;
+}
+.other .rank-col {
+    color: #004080;
+}
+.ranking-table tbody tr:hover {
+    background: cyan;
+}
+.ranking-table tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}        
+</style> 
+
+
+
+{% if ranking_data %}
+<table class="ranking-table">
+  <thead>
+    <tr>
+      <th>FORM POSITION</th>
+      <th>STUDENT NAME</th>
+      
+      <th>PASSED EXAMS</th>
+      <th>TOTAL MARKS</th>
+      <th>STUDENT IQ</th>
+    </tr>  
+  </thead>
+  <tbody>
+    {% for student in ranking_data %} <!-- fixed typo -->
+      <tr class="{% if student.rank >= 1000 %}top2{% else %}other{% endif %}"> <!-- fixed: use rank not id -->
+        <td class="rank-col">{{ student.rank }}</td>
+        <td style="color: blue; font-style: italic">{{ student.student_name }}</td>
+        
+        
+        <td class="rank-col">{{ student.subjects_passed }}/{{student.subjectspassed}}</td>
+        <td style="color: blue; font-style: italic">{{ student.total_marks }}</td>
+        <td class="rank-col">{{student.efficiency|mask_account}}%</td>
+        
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p>No entries to rank yet.</p>
+{% endif %}
+
+
+{% if ranking_dat %}
+<table class="ranking-table">
+  <thead>
+    <tr>
+      <th>FORM POSITION</th>
+      <th>STUDENT NAME</th>
+      
+      
+      <th>PASSED EXAMS</th>
+      <th>TOTAL MARKS</th>
+      <th>STUDENT IQ</th>
+      
+      
+    </tr>  
+  </thead>
+  <tbody>
+    {% for student in ranking_dat %}
+      <tr class="{% if student.rank >= 1000 %}top2{% else %}other{% endif %}">
+        <td class="rank-col">{{ student.rank }}</td>
+        <td style="color: blue; font-style: italic">{{ student.student_name }}</td>
+       
+        
+        <td class="rank-col">{{ student.subjects_passed }}/{{student.subjectspassed}}</td>
+        <td style="color: blue; font-style: italic">{{ student.total_marks }}</td>
+        <td class="rank-col">{{student.efficiency|mask_account}}%</td>
+        
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p>No entries to rank yet.</p>
+{% endif %}
+
+
+
+{% if ranking_da %}
+<table class="ranking-table">
+  <thead>
+    <tr>
+      <th>FORM POSITION</th>
+      <th>STUDENT NAME</th>
+      
+      
+      <th>PASSED EXAMS</th>
+      <th>TOTAL MARKS</th>
+      <th>STUDENT IQ</th>
+      
+    </tr>  
+  </thead>
+  <tbody>
+    {% for student in ranking_da %}
+      <tr class="{% if student.rank >= 1000 %}top2{% else %}other{% endif %}">
+        <td class="rank-col">{{ student.rank }}</td>
+        <td style="color: blue; font-style: italic">{{ student.student_name }}</td>
+        
+        
+        <td class="rank-col">{{ student.subjects_passed }}/{{student.subjectspassed}}</td>
+        <td style="color: blue; font-style: italic">{{ student.total_marks }}</td>
+        <td class="rank-col">{{student.efficiency|mask_account}}%</td>
+        
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p>No entries to rank yet.</p>
+{% endif %}
+
+
+{% if ranking_d %}
+<table class="ranking-table">
+  <thead>
+    <tr>
+      <th>FORM POSITION</th>
+      <th>STUDENT NAME</th>
+     
+      
+      <th>PASSED SUBJECTS</th>
+      <th>TOTAL MARKS</th>
+       <th>STUDENT IQ</th>
+      
+    </tr>  
+  </thead>
+  <tbody>
+    {% for student in ranking_d %}
+      <tr class="{% if student.rank >= 1000 %}top2{% else %}other{% endif %}">
+        <td class="rank-col">{{ student.rank }}</td>
+        <td style="color: blue; font-style: italic">{{ student.student_name }}</td>
+        
+        
+        <td class="rank-col">{{ student.subjects_passed }}/{{student.subjectspassed}}</td>
+        <td style="color: blue; font-style: italic">{{ student.total_marks }}</td>
+        <td class="rank-col">{{student.efficiency|mask_account}}%</td>
+        
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p>No entries to rank yet.</p>
+{% endif %}
+
+<script>
+  const input = document.getElementById("search-input"); // fixed
+  if(input){
+    input.addEventListener("input", function () {
+      const query = this.value;
+      fetch(`{% url 'f_search' %}?q=${encodeURIComponent(query)}`)
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById("search-results").innerHTML = html; // fixed
+        });
+    });
+  }
+</script> 
+
+{% endblock %}
