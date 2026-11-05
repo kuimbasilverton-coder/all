@@ -29,21 +29,6 @@ from.models import PasswordGate
 from.models import FormGroup
 from django.core.cache import cache
 
-
-from django import forms
-from django.contrib.auth.models import User
-from.models import Subject, Entry
-
-from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Count
-from .models import Entry
-from django.db.models import Count
-from .models import Entry
-import json
-from django.shortcuts import render
-from django.db.models import Sum, Count, Q
-
-
 def results(request):
     passed_subjects_by_form = {}
     subjects = Entry.objects.filter(student_mark__gte=50).values_list('subject').annotate(count=Count('subject')).order_by('-count')
