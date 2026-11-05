@@ -27,7 +27,6 @@ from django.urls import reverse
 from django.contrib.auth.hashers import make_password, check_password
 from.models import PasswordGate
 from.models import FormGroup
-from google.cloud import vision
 from django.core.cache import cache
 
 
