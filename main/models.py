@@ -49,9 +49,9 @@ class Visit(models.Model):
 
 
 class PasswordGate(models.Model):
-    password1 = models.CharField(max_length=128)
-    password2 = models.CharField(max_length=128)
-    password3 = models.CharField(max_length=128)
+    password1 = models.CharField(max_length=128, default='123')
+    password2 = models.CharField(max_length=128, default='456')
+    password3 = models.CharField(max_length=128, default='789')
 
     def __str__(self):
         return "Password Gate Config"

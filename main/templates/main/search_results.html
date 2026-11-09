@@ -1,6 +1,5 @@
-{% extends 'main/bes.html' %}
+{% extends 'main/base.html' %}
 {% block title %}SEARCH{% endblock %}
-
 {% block content %}
 
 <style>
@@ -11,7 +10,6 @@
   color: #004080;
   font-weight: bold;
 }
-
 .shiny-text::before {
   content: "";
   position: absolute;
@@ -22,7 +20,6 @@
   background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
   animation: shine 4s infinite;
 }
-
 @keyframes shine {
  0% { left: -50%; }
   100% { left: 100%; }
@@ -41,7 +38,6 @@
 }
 .ranking-table th {
     text-align: left;
-    margin: 0; /* fixed typo */
     font-weight: bold;
     border-bottom: 2px solid #fff;
     padding: 12px 8px;
@@ -56,111 +52,81 @@
 .ranking-table tbody tr:nth-child(even) {
     background: #f8f9fa;
 }
-.ranking-table tbody tr:hover {
-    background: #e3f2fd;
+/* FINAL GRADE - beautiful font, colour comes from views.py */
+.final-grade {
+    font-size: 38px;
+    font-weight: 900;
+    font-family: 'Comic Sans MS', cursive;
+    transform: rotate(-5deg);
+    display: inline-block;
+    line-height: 1;
 }
-.top-student {
-    
-    color: red;
-}    
-.top-student td {
-    color: red !important;
+/* EXAM GRADE - same beautiful font, smaller */
+.exam-grade {
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 22px;
+    font-weight: 990;
+    transform: rotate(-5deg);
+    display: inline-block;
+    line-height: 1;
 }
-.B-student {
-    background: linear-gradient(135deg, #efebe4, #efebe4) !important;
-    color: orange;
-    font-weight: bold;
+/* RESPONSIVE - phones */
+@media (max-width: 600px) {
+  .ranking-table th, .ranking-table td {
+    padding: 8px 5px !important;
+    font-size: 13px !important;
+  }
+  .final-grade {
+    font-size: 26px !important;
+  }
+  .exam-grade {
+    font-size: 18px !important;
+  }
+  h2 {
+    width: 100% !important;
+    font-size: 18px !important;
+  }
 }
-.B-student td {
-    color: orange !important;
+@media (max-width: 380px) {
+  .final-grade { font-size: 22px !important; }
+  .ranking-table { min-width: 360px; }
 }
-.A-student {
-   
-    color: #004080;
-    
-}
-.A-student td {
-    color: #004080 !important;
-}
-</style>  
+</style>
 
-<form id="pdf-search-form" method="get" action="" style="margin-bottom: 20px; margin-left: 0;">
-  <input id="search-input" class="shiny-text" type="text" name="q" value="{{ query }}" placeholder="Search Name" style="background: white; padding: 14px; width: 100%; border: 2px solid white; border-radius: 16px; box-shadow: 0 2px 8px rgba(154,140,152,0.9)">
+<form method="get" action="" style="margin-bottom: 20px;">
+  <input class="shiny-text" type="text" name="q" value="{{ query }}" placeholder="Search Name" style="background: white; padding: 14px; width: 100%; border: 2px solid white; border-radius: 16px; box-shadow: 0 2px 8px rgba(154,140,152,0.9)">
 </form>
 
 {% if rsults %}
     <h2 style="background: linear-gradient(to right, #004080, blue); color: white; width: 50%; box-shadow: 0 2px 8px rgba(154,140,152,0.9);"> {{ rsults.0.student_name }}</h2>
-{% endif %}
 
-
-
-
-{% if rsults %}
- 
-  <table class="ranking-table" style="width: 95%; border-collapse: collapse; margin-top: 10px;">
+  <!-- ONE TABLE ONLY - WRAPPED FOR RESPONSIVE SCROLL -->
+  <div style="overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch;">
+  <table class="ranking-table" style="width: 100%; min-width: 420px; margin-top: 10px;">
     <thead>
       <tr style="background: linear-gradient(to right, #004080, blue); color: white;">
-        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAMINATION</th>                                                                
-        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAM MARK</th>
-        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAM GRADE</th>
+        <th style="border: 1px solid #ddd; padding: 8px;">EXAMINATION</th>
+        <th style="border: 1px solid #ddd; padding: 8px;">EXAM MARK</th>
+        <th style="border: 1px solid #ddd; padding: 8px;">EXAM GRADE</th>
+        <th style="border: 1px solid #ddd; padding: 8px;">FINAL GRADE</th>
       </tr>
     </thead>
-    <tbody>    
-      {% for subject in passed_subjects %}
-      <tr>
-        <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to bottom, #efebe4;); color: black; font-weight: bolder;">{{ subject.subject.name }}</td>                                                      
-        <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: black; font-weight: bolder">{{ subject.student_mark }}%</td>
-        {% if subject.student_mark <= 49 %}
-          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: black; font-weight: bolder"></td>
-        {% elif subject.student_mark >= 70 %}
-          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: blue; font-weight: bolder">A</td>
-        {% elif subject.student_mark <= 59 %}
-          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: purple; font-weight: bolder">C</td>
-          
-        
-        {% else %}
-          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: #004080;;  font-weight: bolder">B</td>
-        {% endif %}     
-           
-      </tr>
-      {% empty %}
-      <tr><td colspan="2"></td></tr>
+    <tbody>
+      {% for g in grouped_results %}
+        {% for paper in g.papers %}
+        <tr>
+          <td style="border: 1px solid #ddd; padding: 8px; background: #efebe4; color: black;">{{ paper.subject.name }}</td>
+          <td style="border: 1px solid #ddd; padding: 8px; background: #efebe4; color: {% if paper.student_mark < 50 %}red{% else %}black{% endif %};">{{ paper.student_mark }}%</td>
+          <td style="border: 1px solid #ddd; padding: 8px; background: #efebe4; text-align: center; color: {% if paper.student_mark < 50 %}red{% elif paper.student_mark >= 70 %}blue{% elif paper.student_mark >= 60 %}#004080{% else %}purple{% endif %};"><span class="exam-grade">{{ paper.paper_grade }}</span></td>
+          {% if forloop.first %}
+          <td rowspan="{{ g.rowspan }}" style="border: 1px solid #ddd; padding: 8px; background: #efebe4; text-align: center; vertical-align: middle;"><span class="final-grade" style="color: {{ g.final_color }}; text-shadow: 1px 1px 0 {{ g.final_color }};">{{ g.final_grade }}</span></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
       {% endfor %}
     </tbody>
   </table>
-
- 
-  <table style="width: 95%; border-collapse: collapse; margin-top: 10px;">
-    <thead>
-     <table style="width: 95%; border-collapse: collapse; margin-top: 10px;">
-    <thead>
-      <tr style="background: linear-gradient(to right, #efebe4); color: #efebe4;">
-        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAMINATION</th>                                                                
-        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAM MARK</th>
-        <th style="text-align: left; margin: 0; font-weight: bold; border: 1px solid #ddd; padding: 8px;">EXAM GRADE</th>
-      
-    </thead>
-    <tbody>    
-      {% for subject in failed_subjects %}
-      <tr>
-        <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: black; font-weight: bold">{{ subject.subject.name }}</td>                                                      
-        <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to left, #efebe4); color: red">{{ subject.student_mark }}%</td>
-        {% if subject.student_mark >= 45 %}
-          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: red; font-weight: bolder">D</td>
-        {% elif subject.student_mark <= 39 %}
-          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: red; font-weight: bolder">U</td>
-        {% else %}
-          <td style="border: 1px solid #ddd; padding: 8px; background: linear-gradient(to right, #efebe4); color: red; font-weight: bolder">E</td>
-        {% endif %}  
-               
-      </tr>
-      {% empty %}
-      <tr><td colspan="2"></td></tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  
+  </div>
 
 {% endif %}
 

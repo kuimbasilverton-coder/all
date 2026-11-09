@@ -1,7 +1,8 @@
 db.sqlite3
 __pycache__/
 *.pyc
-*.sqlite3
 staticfiles/
-media/
 .cache/
+.config/
+.storage/
+*.log
