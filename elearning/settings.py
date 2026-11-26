@@ -11,8 +11,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-n!a*dy+qce9)1@$1-r^^7
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['kaunye.onrender.com']
-CSRF_TRUSTED_ORIGINS = ['https://kaunye.onrender.com']
+ALLOWED_HOSTS = ['kaunye.onrender.com', 'all-l7r6.onrender.com', '*.onrender.com', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://kaunye.onrender.com', 'https://all-l7r6.onrender.com', 'https://*.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -80,12 +80,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_URL = f'https://{os.getenv("AWS_S3_CUSTOM_DOMAIN", "ppl-ai-file-upload.s3.amazonaws.com")}/'
+# --- S3 / Media - FIXED ORDER ---
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com' if AWS_STORAGE_BUCKET_NAME else 'ppl-ai-file-upload.s3.amazonaws.com'
+
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
 if AWS_STORAGE_BUCKET_NAME:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
