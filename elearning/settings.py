@@ -11,8 +11,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-n!a*dy+qce9)1@$1-r^^7
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['KAUNYE.onrender.com']
-CSRF_TRUSTED_ORIGINS = ['https://KAUNYE.onrender.com']
+ALLOWED_HOSTS = ['kaunye.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://kaunye.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
